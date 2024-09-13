@@ -1,4 +1,9 @@
 <div class="relative">
-    <input class="h-[64px] w-[230px] pl-5 pt-4 font-bold text-[24px] border-[1px] border-[#c6c6c6]" [value]="value" />
+    <input 
+    type="text"
+    (input)="onChangeValueHandler($event)"
+    (blur)="transformAmount($event)"
+    [value]="amount" type="text"
+    class="h-[64px] w-[230px] pl-5 pt-4 font-bold text-[24px] border-[1px] border-[#c6c6c6] focus:outline-none" />
     <label class="absolute left-5 top-1 text-[14px]">{{ label }}</label>
 </div>

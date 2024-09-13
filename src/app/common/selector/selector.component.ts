@@ -1,4 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+
+export interface IcurrencyData {
+  meta: {last_updated_at: string},
+  data: {
+    [key:string]: {
+      code: string,
+      value: number
+    }
+  }
+}
 
 
 @Component({
@@ -8,14 +19,25 @@ import { Component } from '@angular/core';
   templateUrl: './selector.component.html',
   styleUrl: './selector.component.scss'
 })
-export class SelectorComponent {
-  constructor() {}
+export class SelectorComponent implements OnInit {
+  @Input() currency!: string
+  @Input() currencyData!: any
+  @Output() eventCurrencyChange = new EventEmitter()
 
-  toggle: boolean = false
+  public tempCurrency!: string
 
 
-  onToggle(): void {
-    this.toggle = !this.toggle
+  ngOnInit(): void {
+      this.tempCurrency = this.currency
   }
 
+  loopObjects(obj:any) {
+    return Object.keys(obj)
+  }
+
+  onChangeHandler(e: Event): void {
+    const newValue = (e.target as HTMLOptionElement).value
+    this.tempCurrency = newValue
+    this.eventCurrencyChange.emit(newValue)
+  }
 }

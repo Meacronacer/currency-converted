@@ -1,6 +1,11 @@
 <div class="container relative w-[1240px] h-screen mb-[200px] m-auto">
     <div class="bg-[#f0f5ff] h-[500px]">
-        <header class="h-[80px] bg-blue-600 rounded"></header>
+        <header class="h-[80px] bg-blue-600 rounded">
+            <ul class="flex items-center justify-center text-center gap-x-20 text-[24px] text-white pt-5">
+                <li>1 USD - {{data.UAH.value / data.USD.value * 1 | currency  }} UAH</li>
+                <li>1 EUR - {{data.UAH.value / data.EUR.value * 1 | currency : 'EUR' }} UAH</li>
+            </ul>
+        </header>
 
         <h1 class="font-bold text-[60px] text-center">Currency Converter</h1>
         <p class="mt-4 text-center">Need to make an international business payment? Take a look at our live foreign exchange rates.</p>
@@ -10,17 +15,17 @@
         <h2 class="text-[32px] mx-auto text-center mt-[30px] max-w-[500px] font-bold">Make fast and affordable international business payments</h2>
         <p class="text-center mt-[30px]">Send secure international business payments in <strong>XX</strong> currencies, all at competitive rates with no hidden fees.</p>
         
-        <div class="px-10 mt-[30px] flex items-center gap-x-5">
+        <div class="px-10 mt-[30px] flex items-center gap-x-5 justify-center">
             <div class="flex items-center">
-                <app-input label="Amount"></app-input>
-                <app-selector></app-selector>
+                <app-input (eventAmountChange)="onHandlerChangeAmountFrom($event)" [amount]="amount" label="Amount"></app-input>
+                <app-selector (eventCurrencyChange)="onHandlerChangeCurrencyFrom($event)" [currencyData]="data" [currency]="from"></app-selector>
             </div>
 
-            <img class="cursor-pointer hover:scale-110 transition-transform" src="exchange.svg" />
+            <img (click)="onSwitchCurrency(this.from, this.to, this.amount, this.convertTo)" class="cursor-pointer hover:scale-110 transition-transform" src="exchange.svg" />
 
             <div class="flex items-center">
-                <app-input label="Converted to"></app-input>
-                <app-selector></app-selector>
+                <app-input (eventAmountChange)="onHandlerChangeAmountTo($event)" [amount]="convertTo" label="Converted to"></app-input>
+                <app-selector (eventCurrencyChange)="onHandlerChangeCurrencyTo($event)" [currencyData]="data" [currency]="to"></app-selector>
             </div>
         </div>
     </div>

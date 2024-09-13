@@ -1,8 +1,10 @@
 <div class="relative">
-    <select class="h-[64px] w-[140px] border-[1px] border-[#c6c6c6] font-bold text-center appearance-none">
-        <option>USD</option>
-        <option>EUR</option>
-        <option>UAH</option>
+    <select
+    (change)="onChangeHandler($event)"
+    [value]="currency" class="h-[64px] w-[100px] border-[1px] border-[#c6c6c6] font-bold text-center appearance-none focus:outline-none">
+        @for (curr of loopObjects(currencyData); track curr) {
+            <option>{{ curr }}</option>
+        }
     </select>
-    <img class="absolute pointer-events-none transition-transform top-[22px] right-[20px]" src="chevron-down.svg" />
+    <img class="absolute pointer-events-none transition-transform top-[22px] right-[10px]" src="chevron-down.svg" />
 </div>

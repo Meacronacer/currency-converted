@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -10,7 +10,29 @@ import { CurrencyPipe } from '@angular/common';
   providers: [CurrencyPipe]
 })
 export class InputComponent {
-  @Input() label:string = ''
-  @Input() value = 1000
+  @Input() label!:string
+  @Input() amount!: number | string
+  @Output() eventAmountChange = new EventEmitter()
+
+  public tempAmount!: number | string
+
+  constructor(private currencyPipe: CurrencyPipe) {
+    this.tempAmount = this.amount
+  }
+
+  onChangeValueHandler(e: any) {
+    const newValue = (e.target as HTMLInputElement).value.replace(/[^0-9.]/g, '');
+    e.target.value = newValue
+    this.tempAmount = newValue
+    this.eventAmountChange.emit(newValue)
+  }
+
+  transformAmount(e: any) {
+    if (e.target.value) {
+      e.target.value = this.currencyPipe.transform(e.target.value, '', 'symbol')?.replace('$', '')
+    } else {
+      e.target.value = 0.00
+    }
+  }
 
 }
