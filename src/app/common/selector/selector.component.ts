@@ -1,15 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-
-export interface IcurrencyData {
-  meta: {last_updated_at: string},
-  data: {
-    [key:string]: {
-      code: string,
-      value: number
-    }
-  }
-}
+import { Icurrency } from '../../services/currency-api.service';
 
 
 @Component({
@@ -21,7 +12,8 @@ export interface IcurrencyData {
 })
 export class SelectorComponent implements OnInit {
   @Input() currency!: string
-  @Input() currencyData!: any
+  @Input() currencyData!: Icurrency
+  @Input() equal!: string
   @Output() eventCurrencyChange = new EventEmitter()
 
   public tempCurrency!: string
@@ -32,6 +24,8 @@ export class SelectorComponent implements OnInit {
   }
 
   loopObjects(obj:any) {
+    if (!obj) return undefined
+
     return Object.keys(obj)
   }
 

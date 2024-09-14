@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -24,7 +24,7 @@ export class InputComponent {
     const newValue = (e.target as HTMLInputElement).value.replace(/[^0-9.]/g, '');
     e.target.value = newValue
     this.tempAmount = newValue
-    this.eventAmountChange.emit(newValue)
+    this.eventAmountChange.emit(Number(newValue))
   }
 
   transformAmount(e: any) {

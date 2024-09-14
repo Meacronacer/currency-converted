@@ -2,8 +2,8 @@
     <div class="bg-[#f0f5ff] h-[500px]">
         <header class="h-[80px] bg-blue-600 rounded">
             <ul class="flex items-center justify-center text-center gap-x-20 text-[24px] text-white pt-5">
-                <li>1 USD - {{data.UAH.value / data.USD.value * 1 | currency  }} UAH</li>
-                <li>1 EUR - {{data.UAH.value / data.EUR.value * 1 | currency : 'EUR' }} UAH</li>
+                <li>1$ USD - {{ usdToUah }} UAH</li>
+                <li>1€ EUR - {{ eurToUah }} UAH</li>
             </ul>
         </header>
 
@@ -18,14 +18,14 @@
         <div class="px-10 mt-[30px] flex items-center gap-x-5 justify-center">
             <div class="flex items-center">
                 <app-input (eventAmountChange)="onHandlerChangeAmountFrom($event)" [amount]="amount" label="Amount"></app-input>
-                <app-selector (eventCurrencyChange)="onHandlerChangeCurrencyFrom($event)" [currencyData]="data" [currency]="from"></app-selector>
+                <app-selector (eventCurrencyChange)="onHandlerChangeCurrencyFrom($event)" [currencyData]="data$" [currency]="from"></app-selector>
             </div>
 
             <img (click)="onSwitchCurrency(this.from, this.to, this.amount, this.convertTo)" class="cursor-pointer hover:scale-110 transition-transform" src="exchange.svg" />
 
             <div class="flex items-center">
                 <app-input (eventAmountChange)="onHandlerChangeAmountTo($event)" [amount]="convertTo" label="Converted to"></app-input>
-                <app-selector (eventCurrencyChange)="onHandlerChangeCurrencyTo($event)" [currencyData]="data" [currency]="to"></app-selector>
+                <app-selector (eventCurrencyChange)="onHandlerChangeCurrencyTo($event)" [currencyData]="data$" [currency]="to"></app-selector>
             </div>
         </div>
     </div>
