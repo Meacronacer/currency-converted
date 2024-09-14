@@ -6,6 +6,7 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { CurrencyApiService, Icurrency } from './services/currency-api.service';
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,8 +17,8 @@ import { CurrencyApiService, Icurrency } from './services/currency-api.service';
 })
 export class AppComponent implements OnInit {
   public data$!: Icurrency;
-  public amount:number | string = 1.00
-  public convertTo:number | string = 0.00
+  public amount:number | string = '1.00'
+  public convertTo:number | string = '1.00'
   public from:string = 'USD'
   public to:string = 'UAH'
 
@@ -44,16 +45,20 @@ export class AppComponent implements OnInit {
 
   onHandlerChangeAmountFrom(value:number | string) {
     this.amount = value
-    this.convertTo = String(this.currencyPipe.transform((
-      (this.data$.data[this.to].value / this.data$.data[this.from].value) * Number(value)
-    ).toFixed(2))?.replace('$', ''))
+    this.convertTo = String(this.currencyPipe.transform(
+      (this.data$.data[this.to].value / this.data$.data[this.from].value) * Number(value),
+      '',
+      ''
+    ))
   }
 
   onHandlerChangeAmountTo(value:number | string) {
     this.convertTo = value
-    this.amount = String(this.currencyPipe.transform((
-      (this.data$.data[this.from].value / this.data$.data[this.to].value) * Number(value)
-    ).toFixed(2))?.replace('$', ''))
+    this.amount = String(this.currencyPipe.transform(
+      (this.data$.data[this.from].value / this.data$.data[this.to].value) * Number(value),
+      '',
+      '',
+    ))
   }
 
   onHandlerChangeCurrencyFrom(value:string) {
