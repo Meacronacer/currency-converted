@@ -13,7 +13,6 @@ import { Icurrency } from '../../services/currency-api.service';
 export class SelectorComponent implements OnInit {
   @Input() currency!: string
   @Input() currencyData!: Icurrency
-  @Input() equal!: string
   @Output() eventCurrencyChange = new EventEmitter()
 
   public tempCurrency!: string
